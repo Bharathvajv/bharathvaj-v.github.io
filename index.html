@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bharathvaj V — Full Stack Developer & Published Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0a0a0a;
+  --black2:#111111;
+  --black3:#1a1a1a;
+  --gold:#C9A84C;
+  --gold-light:#E8C96B;
+  --gold-dim:rgba(201,168,76,0.15);
+  --gold-border:rgba(201,168,76,0.25);
+  --white:#FFFFFF;
+  --gray:#999999;
+  --gray2:#666666;
+  --text:#CCCCCC;
+  --serif:'Playfair Display',serif;
+  --sans:'Inter',sans-serif;
+  --mono:'Fira Code',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--black)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.2rem 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--black3);background:rgba(10,10,10,0.95);backdrop-filter:blur(20px)}
+.nav-brand{font-family:var(--serif);font-size:1.3rem;font-weight:900;color:var(--white);letter-spacing:1px}
+.nav-brand span{color:var(--gold)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{padding:0.6rem 1.4rem;border:1px solid var(--gold);color:var(--gold);font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;font-family:var(--sans)}
+.nav-cta:hover{background:var(--gold);color:var(--black)}
+
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 5% 4rem;gap:4rem;position:relative;overflow:hidden}
+.hero-bg-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-left{position:relative;z-index:2}
+.hero-availability{display:inline-flex;align-items:center;gap:0.5rem;border:1px solid var(--gold-border);padding:0.4rem 1rem;margin-bottom:2rem;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.hero-availability::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero-tag{font-family:var(--mono);font-size:0.85rem;color:var(--gold);margin-bottom:1rem;letter-spacing:1px}
+.hero-name{font-family:var(--serif);font-size:clamp(3rem,6vw,5.5rem);font-weight:900;color:var(--white);line-height:0.95;margin-bottom:1.5rem;letter-spacing:-1px}
+.hero-name em{font-style:normal;color:var(--gold)}
+.hero-divider{width:60px;height:2px;background:var(--gold);margin-bottom:1.5rem}
+.hero-desc{font-size:1rem;color:var(--gray);line-height:1.8;max-width:480px;margin-bottom:2.5rem}
+.hero-stats{display:flex;gap:2.5rem;margin-bottom:2.5rem}
+.hero-stat-num{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--gold);display:block}
+.hero-stat-label{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray2)}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-gold{padding:1rem 2rem;background:var(--gold);color:var(--black);font-size:0.8rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-outline{padding:1rem 2rem;border:1px solid var(--gold-border);color:var(--gold);font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block}
+.btn-outline:hover{border-color:var(--gold);background:var(--gold-dim)}
+
+/* CODE WINDOW */
+.hero-right{position:relative;z-index:2}
+.code-window{background:#0d1117;border:1px solid #30363d;border-radius:12px;overflow:hidden;transform:perspective(1000px) rotateY(-8deg) rotateX(4deg);transition:transform 0.5s ease;box-shadow:40px 40px 80px rgba(0,0,0,0.6),-10px -10px 40px rgba(201,168,76,0.05)}
+.code-window:hover{transform:perspective(1000px) rotateY(0deg) rotateX(0deg)}
+.code-titlebar{background:#161b22;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #30363d}
+.code-dot{width:12px;height:12px;border-radius:50%}
+.code-filename{font-family:var(--mono);font-size:0.75rem;color:#8b949e;margin-left:8px}
+.code-body{padding:20px;font-family:var(--mono);font-size:0.78rem;line-height:1.8;overflow:hidden}
+.ln{color:#3d444d;margin-right:16px;user-select:none;display:inline-block;width:20px;text-align:right}
+.kw{color:#ff7b72}
+.fn{color:#d2a8ff}
+.str{color:#a5d6ff}
+.cm{color:#8b949e;font-style:italic}
+.var{color:#79c0ff}
+.num{color:#f0883e}
+.cls{color:#ffa657}
+.code-line{display:block;padding:1px 0}
+.code-line:hover{background:rgba(255,255,255,0.03);border-radius:3px}
+
+/* SECTION BASE */
+section{padding:7rem 5%}
+.section-eyebrow{font-family:var(--mono);font-size:0.75rem;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:0.75rem}
+.section-heading{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:var(--white);margin-bottom:1.5rem;line-height:1.1}
+.section-divider{width:50px;height:2px;background:var(--gold);margin-bottom:2rem}
+.section-sub{color:var(--gray);font-size:1rem;line-height:1.8;max-width:600px}
+
+/* SERVICES */
+#services{background:var(--black2)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:var(--black3);border:1px solid var(--black3);margin-top:3rem}
+.service-card{background:var(--black2);padding:2.5rem 2rem;transition:all 0.4s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.service-card:hover::before{transform:scaleX(1)}
+.service-card:hover{background:#141414;transform:translateY(-4px)}
+.service-num{font-family:var(--serif);font-size:3rem;font-weight:900;color:var(--black3);position:absolute;top:1rem;right:1.5rem;line-height:1;transition:color 0.4s}
+.service-card:hover .service-num{color:var(--black3)}
+.service-icon{font-size:1.5rem;margin-bottom:1rem}
+.service-title{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:0.75rem}
+.service-desc{font-size:0.85rem;color:var(--gray);line-height:1.7}
+.service-price{margin-top:1.5rem;font-family:var(--mono);font-size:0.75rem;color:var(--gold);letter-spacing:1px}
+
+/* SKILLS — CODE WINDOWS */
+#skills{background:var(--black)}
+.skills-intro{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-bottom:4rem}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.skill-code-card{background:#0d1117;border:1px solid #21262d;border-radius:10px;overflow:hidden;transition:all 0.4s;transform:perspective(800px) rotateX(0deg)}
+.skill-code-card:hover{border-color:rgba(201,168,76,0.4);transform:perspective(800px) rotateX(-3deg) translateY(-8px);box-shadow:0 30px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(201,168,76,0.1)}
+.skill-code-header{background:#161b22;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #21262d}
+.skill-code-lang{font-family:var(--mono);font-size:0.7rem;color:var(--gold);letter-spacing:1px}
+.skill-code-dots{display:flex;gap:5px}
+.skill-code-dot{width:8px;height:8px;border-radius:50%}
+.skill-code-body{padding:16px;font-family:var(--mono);font-size:0.72rem;line-height:1.7}
+
+/* EXPERIENCE */
+#experience{background:var(--black2)}
+.exp-timeline{position:relative;margin-top:3rem}
+.exp-timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),transparent)}
+.exp-item{padding-left:2.5rem;padding-bottom:3rem;position:relative}
+.exp-item::before{content:'';position:absolute;left:-4px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 20px rgba(201,168,76,0.5)}
+.exp-period{font-family:var(--mono);font-size:0.7rem;color:var(--gold);letter-spacing:2px;margin-bottom:0.5rem}
+.exp-role{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.25rem}
+.exp-company{font-size:0.85rem;color:var(--gray2);margin-bottom:1rem}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.exp-points li{font-size:0.9rem;color:var(--gray);padding-left:1.2rem;position:relative;line-height:1.7}
+.exp-points li::before{content:'—';position:absolute;left:0;color:var(--gold)}
+
+/* PROJECTS */
+#projects{background:var(--black)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
+.project-card{background:var(--black2);border:1px solid var(--black3);padding:2rem;position:relative;overflow:hidden;transition:all 0.4s}
+.project-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.project-card:hover::after{transform:scaleX(1)}
+.project-card:hover{border-color:var(--gold-border);transform:translateY(-6px)}
+.project-tag{font-family:var(--mono);font-size:0.7rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem}
+.project-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:1rem;line-height:1.3}
+.project-desc{font-size:0.9rem;color:var(--gray);line-height:1.7;margin-bottom:1.5rem}
+.project-stack{display:flex;flex-wrap:wrap;gap:0.5rem}
+.project-tech{font-family:var(--mono);font-size:0.7rem;color:var(--gold);border:1px solid var(--gold-border);padding:0.2rem 0.6rem}
+
+/* PUBLICATION */
+#publication{background:var(--black2)}
+.pub-wrapper{border:1px solid var(--gold-border);padding:3rem;position:relative;margin-top:3rem;overflow:hidden}
+.pub-wrapper::before{content:'PUBLISHED';position:absolute;right:-2rem;top:50%;transform:translateY(-50%) rotate(90deg);font-family:var(--serif);font-size:5rem;font-weight:900;color:rgba(201,168,76,0.04);pointer-events:none;letter-spacing:4px}
+.pub-journal{font-family:var(--mono);font-size:0.75rem;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem}
+.pub-title{font-family:var(--serif);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;color:var(--white);margin-bottom:1.5rem;line-height:1.3}
+.pub-meta-row{display:flex;flex-wrap:wrap;gap:2rem;margin-bottom:1.5rem}
+.pub-meta-item{display:flex;flex-direction:column;gap:0.25rem}
+.pub-meta-label{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray2)}
+.pub-meta-value{font-family:var(--mono);font-size:0.9rem;color:var(--white)}
+.pub-meta-value.gold{color:var(--gold)}
+.pub-doi{font-family:var(--mono);font-size:0.8rem;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-border);padding-bottom:2px;transition:border-color 0.3s}
+.pub-doi:hover{border-color:var(--gold)}
+
+/* PROPOSAL */
+#proposal{background:var(--black);padding:7rem 5%}
+.proposal-inner{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start}
+.proposal-features{margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+.proposal-feat{display:flex;gap:1rem;align-items:flex-start}
+.proposal-feat-icon{width:32px;height:32px;border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.85rem;color:var(--gold)}
+.proposal-feat-text h4{font-size:0.9rem;font-weight:600;color:var(--white);margin-bottom:0.2rem}
+.proposal-feat-text p{font-size:0.8rem;color:var(--gray);line-height:1.6}
+.proposal-form{background:var(--black2);border:1px solid var(--black3);padding:2.5rem}
+.form-title{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--white);margin-bottom:0.5rem}
+.form-sub{font-size:0.85rem;color:var(--gray);margin-bottom:2rem;line-height:1.6}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{margin-bottom:1rem;display:flex;flex-direction:column;gap:0.5rem}
+.form-label{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray2)}
+.form-input,.form-select,.form-textarea{background:var(--black);border:1px solid var(--black3);color:var(--white);padding:0.75rem 1rem;font-size:0.9rem;font-family:var(--sans);width:100%;transition:border-color 0.3s;outline:none}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-select{appearance:none;cursor:pointer}
+.form-select option{background:var(--black2)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-submit{width:100%;padding:1.1rem;background:var(--gold);color:var(--black);font-size:0.85rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;font-family:var(--sans);transition:all 0.3s;margin-top:0.5rem}
+.form-submit:hover{background:var(--gold-light)}
+.form-note{font-size:0.75rem;color:var(--gray2);margin-top:0.75rem;text-align:center}
+
+/* CONTACT */
+#contact{background:var(--black2);padding:5rem 5%;text-align:center}
+.contact-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--white);margin-bottom:1rem}
+.contact-sub{color:var(--gray);font-size:1rem;max-width:500px;margin:0 auto 3rem;line-height:1.8}
+.contact-links{display:flex;justify-content:center;flex-wrap:wrap;gap:2rem;margin-top:2rem}
+.contact-link{display:flex;align-items:center;gap:0.75rem;color:var(--gray);text-decoration:none;font-size:0.9rem;transition:color 0.3s;padding-bottom:4px;border-bottom:1px solid transparent}
+.contact-link:hover{color:var(--gold);border-bottom-color:var(--gold)}
+.contact-link-icon{font-size:0.9rem;color:var(--gold)}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid var(--black3);padding:2rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-brand{font-family:var(--serif);font-weight:900;color:var(--white);font-size:1rem}
+.footer-brand span{color:var(--gold)}
+.footer-copy{font-size:0.75rem;color:var(--gray2);letter-spacing:1px}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:all 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* COUNTER */
+.counter{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--gold)}
+
+/* MOBILE */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding-top:7rem}
+  .hero-right{display:none}
+  .skills-intro,.proposal-inner{grid-template-columns:1fr}
+  nav .nav-links,.nav-cta{display:none}
+}
+@media(max-width:600px){
+  section{padding:4rem 1.25rem}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">BV<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publication">Research</a></li>
+    <li><a href="#proposal">Hire Me</a></li>
+  </ul>
+  <a href="#proposal" class="nav-cta">Request Proposal</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"></div>
+
+  <div class="hero-left reveal-left">
+    <div class="hero-availability">Available for Freelance & Full-time</div>
+    <div class="hero-tag">// Full Stack Developer & Published Researcher</div>
+    <h1 class="hero-name">Bharath<br>vaj <em>V.</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">I build robust web applications, data-driven systems, and ML-integrated solutions. MCA Graduate · Published in International Peer-Reviewed Journal · Hosur, Tamil Nadu.</p>
+    <div class="hero-stats">
+      <div><span class="counter" data-target="2">0</span><span class="hero-stat-label">Internships</span></div>
+      <div><span class="counter" data-target="8187" data-decimal="3">0</span><span class="hero-stat-label">Research IF</span></div>
+      <div><span class="counter" data-target="82">0</span><span class="hero-stat-label">MCA Score %</span></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#proposal" class="btn-gold">Request a Proposal</a>
+      <a href="#projects" class="btn-outline">View My Work</a>
+    </div>
+  </div>
+
+  <div class="hero-right reveal-right">
+    <div class="code-window" id="heroCode">
+      <div class="code-titlebar">
+        <div class="code-dot" style="background:#ff5f57"></div>
+        <div class="code-dot" style="background:#ffbd2e"></div>
+        <div class="code-dot" style="background:#28c840"></div>
+        <span class="code-filename">water_quality_model.py</span>
+      </div>
+      <div class="code-body">
+        <span class="code-line"><span class="ln">1</span><span class="kw">from</span> <span class="var">flask</span> <span class="kw">import</span> <span class="cls">Flask</span>, request, jsonify</span>
+        <span class="code-line"><span class="ln">2</span><span class="kw">from</span> <span class="var">sklearn.ensemble</span> <span class="kw">import</span> <span class="cls">RandomForestClassifier</span></span>
+        <span class="code-line"><span class="ln">3</span><span class="kw">import</span> <span class="var">pandas</span> <span class="kw">as</span> <span class="var">pd</span></span>
+        <span class="code-line"><span class="ln">4</span>&nbsp;</span>
+        <span class="code-line"><span class="ln">5</span><span class="var">app</span> = <span class="cls">Flask</span>(__name__)</span>
+        <span class="code-line"><span class="ln">6</span><span class="cm"># IoT Water Quality Prediction — IRJMETS 2026</span></span>
+        <span class="code-line"><span class="ln">7</span>&nbsp;</span>
+        <span class="code-line"><span class="ln">8</span><span class="fn">@app.route</span>(<span class="str">'/predict'</span>, methods=[<span class="str">'POST'</span>])</span>
+        <span class="code-line"><span class="ln">9</span><span class="kw">def</span> <span class="fn">predict_water_quality</span>():</span>
+        <span class="code-line"><span class="ln">10</span>  <span class="var">sensor_data</span> = request.get_json()</span>
+        <span class="code-line"><span class="ln">11</span>  <span class="var">ph</span> = sensor_data[<span class="str">'ph'</span>]</span>
+        <span class="code-line"><span class="ln">12</span>  <span class="var">turbidity</span> = sensor_data[<span class="str">'turbidity'</span>]</span>
+        <span class="code-line"><span class="ln">13</span>  <span class="var">temp</span> = sensor_data[<span class="str">'temperature'</span>]</span>
+        <span class="code-line"><span class="ln">14</span>  <span class="var">prediction</span> = <span class="var">model</span>.predict([[<span class="var">ph</span>, <span class="var">turbidity</span>, <span class="var">temp</span>]])</span>
+        <span class="code-line"><span class="ln">15</span>  <span class="var">result</span> = <span class="str">"Potable"</span> <span class="kw">if</span> <span class="var">prediction</span>[<span class="num">0</span>] == <span class="num">1</span> <span class="kw">else</span> <span class="str">"Non-Potable"</span></span>
+        <span class="code-line"><span class="ln">16</span>  <span class="kw">return</span> <span class="fn">jsonify</span>({<span class="str">'status'</span>: <span class="var">result</span>, <span class="str">'confidence'</span>: <span class="num">0.94</span>})</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-eyebrow">What I Offer</div>
+  <h2 class="section-heading reveal">Services</h2>
+  <div class="section-divider"></div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-icon">⚙️</div>
+      <div class="service-title">Web Application Development</div>
+      <div class="service-desc">Full-stack web applications built with Python (Flask/Django) or Java (Servlets/JSP), MySQL, and REST APIs. Clean architecture, secure database design, and responsive frontend.</div>
+      <div class="service-price">Starting from ₹8,000</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <div class="service-icon">🤖</div>
+      <div class="service-title">ML Model Integration</div>
+      <div class="service-desc">Machine learning models integrated into web applications. Classification, prediction, and real-time inference using scikit-learn and TensorFlow. Published expertise in IoT + ML systems.</div>
+      <div class="service-price">Starting from ₹12,000</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <div class="service-icon">🗄️</div>
+      <div class="service-title">Database Design & Optimization</div>
+      <div class="service-desc">MySQL schema design, query optimization, JDBC connectivity, and data reporting. Secure parameterized queries, normalized structures, and performance tuning.</div>
+      <div class="service-price">Starting from ₹5,000</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <div class="service-icon">📊</div>
+      <div class="service-title">Data Analysis & Reporting</div>
+      <div class="service-desc">Business data analysis, MIS report generation, data visualization, and actionable insight extraction. Python (Pandas), SQL, and Excel-based solutions for your business decisions.</div>
+      <div class="service-price">Starting from ₹4,000</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS — CODE WINDOWS -->
+<section id="skills">
+  <div class="skills-intro">
+    <div class="reveal-left">
+      <div class="section-eyebrow">Technical Proficiency</div>
+      <h2 class="section-heading">Skills in<br>Production Code</h2>
+      <div class="section-divider"></div>
+      <p class="section-sub">Every skill below is backed by real production code written during internships or published research — not just academic exercises.</p>
+    </div>
+    <div class="reveal-right" style="display:flex;flex-direction:column;gap:1rem;padding-top:2rem">
+      <div style="border:1px solid var(--black3);padding:1.25rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.85rem;color:var(--gray)">Python (Flask / Django)</span>
+        <span style="font-family:var(--mono);font-size:0.75rem;color:var(--gold)">Advanced</span>
+      </div>
+      <div style="border:1px solid var(--black3);padding:1.25rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.85rem;color:var(--gray)">Java (Servlets / JSP)</span>
+        <span style="font-family:var(--mono);font-size:0.75rem;color:var(--gold)">Advanced</span>
+      </div>
+      <div style="border:1px solid var(--black3);padding:1.25rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.85rem;color:var(--gray)">MySQL & SQL</span>
+        <span style="font-family:var(--mono);font-size:0.75rem;color:var(--gold)">Advanced</span>
+      </div>
+      <div style="border:1px solid var(--black3);padding:1.25rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.85rem;color:var(--gray)">Machine Learning (scikit-learn / TF)</span>
+        <span style="font-family:var(--mono);font-size:0.75rem;color:var(--gold)">Intermediate</span>
+      </div>
+      <div style="border:1px solid var(--black3);padding:1.25rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.85rem;color:var(--gray)">REST APIs & MVC Architecture</span>
+        <span style="font-family:var(--mono);font-size:0.75rem;color:var(--gold)">Advanced</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skills-grid">
+    <!-- Python -->
+    <div class="skill-code-card reveal">
+      <div class="skill-code-header">
+        <span class="skill-code-lang">Python · Flask API</span>
+        <div class="skill-code-dots">
+          <div class="skill-code-dot" style="background:#ff5f57"></div>
+          <div class="skill-code-dot" style="background:#ffbd2e"></div>
+          <div class="skill-code-dot" style="background:#28c840"></div>
+        </div>
+      </div>
+      <div class="skill-code-body">
+        <span class="code-line"><span class="kw">from</span> <span class="var">flask</span> <span class="kw">import</span> <span class="cls">Flask</span>, jsonify</span>
+        <span class="code-line"><span class="kw">from</span> <span class="var">sklearn.ensemble</span> <span class="kw">import</span> <span class="cls">RandomForestClassifier</span></span>
+        <span class="code-line">&nbsp;</span>
+        <span class="code-line"><span class="fn">@app.route</span>(<span class="str">'/api/predict'</span>, methods=[<span class="str">'POST'</span>])</span>
+        <span class="code-line"><span class="kw">def</span> <span class="fn">predict</span>():</span>
+        <span class="code-line">  <span class="var">data</span> = request.get_json()</span>
+        <span class="code-line">  <span class="var">result</span> = <span class="var">model</span>.<span class="fn">predict</span>([<span class="var">data</span>[<span class="str">'features'</span>]])</span>
+        <span class="code-line">  <span class="kw">return</span> <span class="fn">jsonify</span>({<span class="str">'prediction'</span>: <span class="var">result</span>[<span class="num">0</span>]})</span>
+      </div>
+    </div>
+    <!-- Java -->
+    <div class="skill-code-card reveal">
+      <div class="skill-code-header">
+        <span class="skill-code-lang">Java · Servlet</span>
+        <div class="skill-code-dots">
+          <div class="skill-code-dot" style="background:#ff5f57"></div>
+          <div class="skill-code-dot" style="background:#ffbd2e"></div>
+          <div class="skill-code-dot" style="background:#28c840"></div>
+        </div>
+      </div>
+      <div class="skill-code-body">
+        <span class="code-line"><span class="kw">public class</span> <span class="cls">WaterDataServlet</span> <span class="kw">extends</span> <span class="cls">HttpServlet</span> {</span>
+        <span class="code-line">  <span class="fn">@Override</span></span>
+        <span class="code-line">  <span class="kw">protected void</span> <span class="fn">doPost</span>(<span class="cls">HttpServletRequest</span> req,</span>
+        <span class="code-line">      <span class="cls">HttpServletResponse</span> res) <span class="kw">throws</span> <span class="cls">IOException</span> {</span>
+        <span class="code-line">    <span class="cls">String</span> <span class="var">sensor</span> = req.<span class="fn">getParameter</span>(<span class="str">"sensorId"</span>);</span>
+        <span class="code-line">    <span class="cls">JSONObject</span> <span class="var">result</span> = <span class="fn">callPythonAPI</span>(<span class="var">sensor</span>);</span>
+        <span class="code-line">    res.<span class="fn">getWriter</span>().<span class="fn">write</span>(<span class="var">result</span>.<span class="fn">toString</span>());</span>
+        <span class="code-line">  }</span>
+        <span class="code-line">}</span>
+      </div>
+    </div>
+    <!-- SQL -->
+    <div class="skill-code-card reveal">
+      <div class="skill-code-header">
+        <span class="skill-code-lang">MySQL · Schema & Queries</span>
+        <div class="skill-code-dots">
+          <div class="skill-code-dot" style="background:#ff5f57"></div>
+          <div class="skill-code-dot" style="background:#ffbd2e"></div>
+          <div class="skill-code-dot" style="background:#28c840"></div>
+        </div>
+      </div>
+      <div class="skill-code-body">
+        <span class="code-line"><span class="cm">-- Water quality readings table</span></span>
+        <span class="code-line"><span class="kw">CREATE TABLE</span> <span class="cls">sensor_readings</span> (</span>
+        <span class="code-line">  <span class="var">id</span>          <span class="fn">INT</span> <span class="kw">PRIMARY KEY</span> <span class="kw">AUTO_INCREMENT</span>,</span>
+        <span class="code-line">  <span class="var">ph_level</span>    <span class="fn">DECIMAL</span>(<span class="num">5,2</span>),</span>
+        <span class="code-line">  <span class="var">turbidity</span>   <span class="fn">DECIMAL</span>(<span class="num">6,3</span>),</span>
+        <span class="code-line">  <span class="var">temperature</span> <span class="fn">DECIMAL</span>(<span class="num">5,2</span>),</span>
+        <span class="code-line">  <span class="var">is_potable</span>  <span class="fn">BOOLEAN</span>,</span>
+        <span class="code-line">  <span class="var">recorded_at</span> <span class="fn">TIMESTAMP</span> <span class="kw">DEFAULT</span> <span class="fn">NOW</span>()</span>
+        <span class="code-line">);</span>
+      </div>
+    </div>
+    <!-- ML -->
+    <div class="skill-code-card reveal">
+      <div class="skill-code-header">
+        <span class="skill-code-lang">TensorFlow · CNN Model</span>
+        <div class="skill-code-dots">
+          <div class="skill-code-dot" style="background:#ff5f57"></div>
+          <div class="skill-code-dot" style="background:#ffbd2e"></div>
+          <div class="skill-code-dot" style="background:#28c840"></div>
+        </div>
+      </div>
+      <div class="skill-code-body">
+        <span class="code-line"><span class="kw">import</span> <span class="var">tensorflow</span> <span class="kw">as</span> <span class="var">tf</span></span>
+        <span class="code-line"><span class="var">model</span> = <span class="var">tf.keras</span>.<span class="cls">Sequential</span>([</span>
+        <span class="code-line">  <span class="var">tf.keras.layers</span>.<span class="cls">Conv2D</span>(<span class="num">32</span>, (<span class="num">3</span>,<span class="num">3</span>), activation=<span class="str">'relu'</span>),</span>
+        <span class="code-line">  <span class="var">tf.keras.layers</span>.<span class="cls">MaxPooling2D</span>(<span class="num">2</span>,<span class="num">2</span>),</span>
+        <span class="code-line">  <span class="var">tf.keras.layers</span>.<span class="cls">Flatten</span>(),</span>
+        <span class="code-line">  <span class="var">tf.keras.layers</span>.<span class="cls">Dense</span>(<span class="num">128</span>, activation=<span class="str">'relu'</span>),</span>
+        <span class="code-line">  <span class="var">tf.keras.layers</span>.<span class="cls">Dense</span>(<span class="num">1</span>, activation=<span class="str">'sigmoid'</span>)</span>
+        <span class="code-line">])</span>
+        <span class="code-line"><span class="cm"># Face Mask Detection — 94% accuracy</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow">Work History</div>
+  <h2 class="section-heading reveal">Professional<br>Experience</h2>
+  <div class="section-divider"></div>
+  <div class="exp-timeline">
+    <div class="exp-item reveal">
+      <div class="exp-period">May 2025 — Jul 2025</div>
+      <div class="exp-role">Full Stack Developer Intern</div>
+      <div class="exp-company">Vcodes Innovating Ideas · Sholinganallur, Chennai</div>
+      <ul class="exp-points">
+        <li>Built and deployed web application modules using Java Servlets, JSP, and JDBC on Apache Tomcat, following MVC architecture and industry coding standards</li>
+        <li>Designed MySQL database schemas with parameterized queries, eliminating SQL injection vulnerabilities across all user-input flows</li>
+        <li>Developed responsive HTML/CSS/JS frontend components ensuring cross-browser consistency</li>
+      </ul>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">Aug 2023 — Jun 2024</div>
+      <div class="exp-role">Sales Data Analyst & Administrator</div>
+      <div class="exp-company">Yalvo India Private Limited · Bengaluru</div>
+      <ul class="exp-points">
+        <li>Analysed sales data and prepared MIS reports and performance summaries using MS Excel for management decision-making</li>
+        <li>Coordinated between sales, production, and dispatch departments ensuring data accuracy and operational efficiency</li>
+      </ul>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">Dec 2022 — Feb 2023</div>
+      <div class="exp-role">Full Stack Developer Intern</div>
+      <div class="exp-company">Shiash Info Solutions · Sholinganallur, Chennai</div>
+      <ul class="exp-points">
+        <li>Built full-stack web features using Python (Flask/Django), MySQL, HTML/CSS/JS, and REST APIs in a 3-month professional sprint</li>
+        <li>Designed and optimized SQL queries for internal reporting modules, reducing data retrieval time significantly</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow">Selected Work</div>
+  <h2 class="section-heading reveal">Projects</h2>
+  <div class="section-divider"></div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-tag">Featured · Published Research</div>
+      <div class="project-title">IoT-Based Water Quality Prediction System</div>
+      <div class="project-desc">End-to-end IoT + Machine Learning system integrating real-time ESP32 sensor data with a RandomForestClassifier to predict water potability. Python Flask API connected to Java Servlet frontend. Peer-reviewed and published in IRJMETS (Impact Factor: 8.187, June 2026).</div>
+      <div class="project-stack">
+        <span class="project-tech">Python</span>
+        <span class="project-tech">Flask</span>
+        <span class="project-tech">Java</span>
+        <span class="project-tech">MySQL</span>
+        <span class="project-tech">scikit-learn</span>
+        <span class="project-tech">ESP32</span>
+        <span class="project-tech">IoT</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-tag">Computer Vision · Deep Learning</div>
+      <div class="project-title">Real-Time Face Mask Detection System</div>
+      <div class="project-desc">CNN trained on a Kaggle dataset for binary mask/no-mask classification achieving 94%+ accuracy. Integrated with OpenCV for live webcam feed capture, frame preprocessing, and real-time inference across varied lighting conditions.</div>
+      <div class="project-stack">
+        <span class="project-tech">Python</span>
+        <span class="project-tech">TensorFlow</span>
+        <span class="project-tech">Keras</span>
+        <span class="project-tech">CNN</span>
+        <span class="project-tech">OpenCV</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATION -->
+<section id="publication">
+  <div class="section-eyebrow">Academic Research</div>
+  <h2 class="section-heading reveal">Publication</h2>
+  <div class="section-divider"></div>
+  <div class="pub-wrapper reveal">
+    <div class="pub-journal">International Research Journal of Modernization in Engineering Technology and Science (IRJMETS)</div>
+    <div class="pub-title">IoT Based Water Quality Prediction System Using Machine Learning and ESP32</div>
+    <div class="pub-meta-row">
+      <div class="pub-meta-item">
+        <span class="pub-meta-label">Volume / Issue</span>
+        <span class="pub-meta-value">Vol. 08 / Issue 06</span>
+      </div>
+      <div class="pub-meta-item">
+        <span class="pub-meta-label">Date</span>
+        <span class="pub-meta-value">June 2026</span>
+      </div>
+      <div class="pub-meta-item">
+        <span class="pub-meta-label">Impact Factor</span>
+        <span class="pub-meta-value gold">8.187</span>
+      </div>
+      <div class="pub-meta-item">
+        <span class="pub-meta-label">e-ISSN</span>
+        <span class="pub-meta-value">2582-5208</span>
+      </div>
+      <div class="pub-meta-item">
+        <span class="pub-meta-label">Paper ID</span>
+        <span class="pub-meta-value">IRJMETS80600002038</span>
+      </div>
+      <div class="pub-meta-item">
+        <span class="pub-meta-label">Type</span>
+        <span class="pub-meta-value">Peer-Reviewed · Open Access</span>
+      </div>
+    </div>
+    <a class="pub-doi" href="https://www.doi.org/10.56726/IRJMETS99723" target="_blank">DOI: https://www.doi.org/10.56726/IRJMETS99723</a>
+  </div>
+</section>
+
+<!-- PROPOSAL -->
+<section id="proposal">
+  <div class="proposal-inner">
+    <div class="reveal-left">
+      <div class="section-eyebrow">Work With Me</div>
+      <h2 class="section-heading">Request a<br>Business<br>Proposal</h2>
+      <div class="section-divider"></div>
+      <p class="section-sub">Whether you need a web application, an ML-powered system, or a data analytics solution — I deliver clean, professional, and production-ready work.</p>
+      <div class="proposal-features">
+        <div class="proposal-feat">
+          <div class="proposal-feat-icon">01</div>
+          <div class="proposal-feat-text">
+            <h4>Initial Consultation</h4>
+            <p>I review your requirements and respond with a detailed proposal within 24 hours.</p>
+          </div>
+        </div>
+        <div class="proposal-feat">
+          <div class="proposal-feat-icon">02</div>
+          <div class="proposal-feat-text">
+            <h4>Scope & Timeline</h4>
+            <p>Clear project milestones, deliverables, and transparent pricing — no hidden costs.</p>
+          </div>
+        </div>
+        <div class="proposal-feat">
+          <div class="proposal-feat-icon">03</div>
+          <div class="proposal-feat-text">
+            <h4>Delivery & Support</h4>
+            <p>On-time delivery with source code, documentation, and post-delivery support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="proposal-form reveal-right">
+      <div class="form-title">Project Inquiry</div>
+      <div class="form-sub">Fill in your project details and I will get back to you within 24 hours with a tailored proposal.</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-input" placeholder="Your full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-input" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Company / Organisation</label>
+          <input type="text" class="form-input" placeholder="Company name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Required *</label>
+        <select class="form-select">
+          <option value="" disabled selected>Select a service</option>
+          <option>Web Application Development</option>
+          <option>ML Model Integration</option>
+          <option>Database Design & Optimization</option>
+          <option>Data Analysis & MIS Reporting</option>
+          <option>Full Stack Project (End-to-End)</option>
+          <option>Other / Custom Requirement</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Estimated Budget</label>
+          <select class="form-select">
+            <option value="" disabled selected>Budget range</option>
+            <option>Under ₹5,000</option>
+            <option>₹5,000 – ₹15,000</option>
+            <option>₹15,000 – ₹30,000</option>
+            <option>₹30,000 – ₹60,000</option>
+            <option>Above ₹60,000</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Project Timeline</label>
+          <select class="form-select">
+            <option value="" disabled selected>Expected duration</option>
+            <option>Less than 1 week</option>
+            <option>1 – 2 weeks</option>
+            <option>2 – 4 weeks</option>
+            <option>1 – 3 months</option>
+            <option>Ongoing / Long-term</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Project Description *</label>
+        <textarea class="form-textarea" placeholder="Describe your project requirements, goals, and any specific technologies or features you need..."></textarea>
+      </div>
+      <button class="form-submit" onclick="handleSubmit(event)">Submit Project Inquiry</button>
+      <div class="form-note">I respond to all inquiries within 24 hours · bharath31003@gmail.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">Get In Touch</div>
+  <h2 class="contact-title reveal">Let's Build<br>Something <em style="font-style:normal;color:var(--gold)">Great</em></h2>
+  <p class="contact-sub">Open to full-time IT roles in Chennai / Bangalore and freelance projects worldwide. Let's connect.</p>
+  <a href="#proposal" class="btn-gold">Request a Proposal</a>
+  <div class="contact-links">
+    <a href="mailto:bharath31003@gmail.com" class="contact-link"><span class="contact-link-icon">✉</span> bharath31003@gmail.com</a>
+    <a href="tel:9677172961" class="contact-link"><span class="contact-link-icon">☎</span> +91 9677172961</a>
+    <a href="https://linkedin.com/in/bharath-vaj-v-798a92391" target="_blank" class="contact-link"><span class="contact-link-icon">in</span> LinkedIn</a>
+    <a href="https://www.doi.org/10.56726/IRJMETS99723" target="_blank" class="contact-link"><span class="contact-link-icon">📄</span> Research Paper</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">BV<span>.</span></div>
+  <div class="footer-copy">© 2026 Bharathvaj V · Hosur, Tamil Nadu · All Rights Reserved</div>
+  <div class="footer-copy">bharathvajv.github.io</div>
+</footer>
+
+<script>
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => {
+  observer.observe(el);
+});
+
+// COUNTER ANIMATION
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting && !e.target.dataset.done) {
+      e.target.dataset.done = true;
+      const target = parseInt(e.target.dataset.target);
+      const decimal = parseInt(e.target.dataset.decimal || 0);
+      const duration = 1800;
+      const steps = 60;
+      const increment = target / steps;
+      let current = 0;
+      const timer = setInterval(() => {
+        current = Math.min(current + increment, target);
+        if(decimal > 0) {
+          const val = current / Math.pow(10, decimal);
+          e.target.textContent = val.toFixed(3);
+        } else {
+          e.target.textContent = Math.floor(current);
+        }
+        if(current >= target) clearInterval(timer);
+      }, duration / steps);
+    }
+  });
+}, {threshold: 0.5});
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+// HERO CODE MOUSE TILT
+const heroCode = document.getElementById('heroCode');
+if(heroCode) {
+  document.addEventListener('mousemove', (e) => {
+    const rect = heroCode.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const rotX = (e.clientY - centerY) / 40;
+    const rotY = (e.clientX - centerX) / 40;
+    heroCode.style.transform = `perspective(1000px) rotateX(${-rotX}deg) rotateY(${rotY - 8}deg)`;
+  });
+}
+
+// FORM SUBMIT
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target;
+  btn.textContent = 'Sending...';
+  btn.style.background = '#888';
+  setTimeout(() => {
+    btn.textContent = '✓ Inquiry Submitted Successfully';
+    btn.style.background = '#4ade80';
+    btn.style.color = '#000';
+    setTimeout(() => {
+      btn.textContent = 'Submit Project Inquiry';
+      btn.style.background = 'var(--gold)';
+      btn.style.color = 'var(--black)';
+    }, 3000);
+  }, 1200);
+  const subject = encodeURIComponent('Project Inquiry from Portfolio');
+  const body = encodeURIComponent('Hello Bharathvaj,\n\nI am interested in discussing a project with you.\n\nRegards');
+  window.open(`mailto:bharath31003@gmail.com?subject=${subject}&body=${body}`);
+}
+
+// STAGGER DELAYS
+document.querySelectorAll('.service-card').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.1}s`;
+});
+document.querySelectorAll('.skill-code-card').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.15}s`;
+});
+</script>
+</body>
+</html>
